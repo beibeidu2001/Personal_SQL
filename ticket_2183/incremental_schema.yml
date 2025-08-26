@@ -1,0 +1,320 @@
+models:
+  - name: kpi_sportsbook360_events_level_data
+    +database: "{{ env_var('DBT_GCP_PROJECT') }}"
+    +full_refresh: false
+    config:
+      tags: ["mqt", "event", "kpi_mqt", "sportsbook"]
+      materialized: table
+      access: public
+      on_schema_change: append_new_columns
+      contract:
+        enforced: true
+    description: >
+      This table contains data related to events in the sportsbook360 system at a detailed level.      
+    docs:
+      show: true
+    columns:
+      - name: id
+        description: >
+          record unique identifier          
+        data_type: string
+        tests:
+          - not_null
+          - unique
+              
+      - name: event_id
+        description: >
+          The ID of the event.          
+        data_type: string
+      - name: location
+        description: >
+          The state label of the event.          
+        data_type: string
+      - name: prorated_stake
+        description: >
+          The prorated stake for the event.          
+        data_type: NUMERIC
+      - name: prorated_stake_lc
+        description: >
+          The prorated stake for the event in local currecncy.          
+        data_type: NUMERIC
+      - name: prorated_stake_tx
+        description: >
+          The prorated stake for the event in EUR using kambi rates.          
+        data_type: NUMERIC
+      # - name: contribution_a
+      #   description: >
+      #     The contribution A for the event.          
+      #   data_type: numeric
+      # - name: amount
+      #   description: >
+      #     The amount for the event.          
+        # data_type: numeric
+      - name: src_betslip_uuid
+        description: >
+          The UUID of the source betslip for the event.          
+        data_type: string
+      - name: bonus_campaign_type
+        description: >
+          The type of bonus campaign for the event.          
+        data_type: string
+      - name: betslip_status
+        description: >
+          The status of the betslip for the event.          
+        data_type: string
+      - name: origin_stake
+        description: >
+          The original stake for the event.          
+        data_type: NUMERIC
+      - name: betslip_type
+        description: >
+          The type of betslip for the event.          
+        data_type: string
+      - name: customer_uid
+        description: >
+          The UID of the customer for the event.          
+        data_type: string
+      - name: ticket_delivery_date
+        description: >
+          {{ doc("ticket_delivery_date") }}
+        data_type: timestamp 
+      - name: last_updated_date
+        description: >
+          {{ doc("last_updated_date") }}
+        tests:
+          - not_null
+        data_type: timestamp 
+      - name: src_campaign_id
+        description: >
+          The source campaign ID.          
+        data_type: string
+      # - name: campaign_handle
+      #   description: >
+      #     The campaign handle.          
+      #   data_type: NUMERIC
+      - name: event_name
+        description: >
+          The name of the event.          
+        data_type: string
+      - name: home
+        description: >
+          The home team.          
+        data_type: string
+      - name: away
+        description: >
+          The away team.          
+        data_type: string
+      - name: bet_outcome_id
+        description: >
+          The ID of the bet outcome.          
+        data_type: string
+      - name: bet_combination_id
+        description: >
+          The ID of the bet combination.          
+        data_type: STRING
+      - name: bet_id
+        description: >
+          The ID of the bet.          
+        data_type: STRING
+      - name: event_status
+        description: >
+          The status of the event.          
+        data_type: string
+      - name: event_type
+        description: >
+          The type of the event.          
+        data_type: string
+      - name: start_date
+        description: >
+          The date and time when the event starts.          
+        data_type: TIMESTAMP 
+      - name: event_group_name
+        description: >
+          The name of the event group. Typically the league.          
+        data_type: string
+      - name: event_root_group_name
+        description: >
+          The name of the root group of the event. Typically the sport.          
+        data_type: string
+      - name: event_parent_group_name
+        description: >
+          The name of the parent group of the event. Typically the country.          
+        data_type: string
+      - name: channel
+        description: >
+          The channel of the event.          
+        data_type: string
+      - name: wager_description
+        description: >
+          The description of the wager.          
+        data_type: string
+      - name: requested_display_odds
+        description: >
+          The odds at the leg level        
+        data_type: BIGNUMERIC
+      - name: combination_odds
+        description: >
+          The odds at the combination level on placement.
+        data_type: NUMERIC
+      - name: combination_payout_odds
+        description: >
+          The odds at the combination level on settlement.
+        data_type: NUMERIC
+      - name: market_id
+        description: >
+          The ID of the market.          
+        data_type: string
+      - name: market_type
+        description: >
+          The type of the market.          
+        data_type: string
+      - name: originproviderid
+        description: >
+          {{ doc("originproviderid") }}
+        data_type: int64
+      - name: selection
+        description: >
+          The selection of the event.          
+        data_type: string
+      - name: currency
+        description: >
+          The currency of the event.          
+        data_type: string
+      - name: void_by
+        description: >
+          The void by of the event.          
+        data_type: string
+      - name: void_reason
+        description: >
+          The void reason of the event.          
+        data_type: string
+      - name: bet_combination_status
+        description: >
+          The status of the bet combination.          
+        data_type: string
+      - name: market_name
+        description: >
+          The name of the market.          
+        data_type: string
+      - name: player_prop_flag
+        description: >
+          The player prop flag.          
+        data_type: string
+      - name: market_line
+        description: >
+          {{ doc("market_line") }}
+        data_type: STRING
+      - name: section
+        description: >
+          {{ doc("section") }}
+        data_type: STRING
+      - name: team_player
+        description: >
+          {{ doc("team_player") }}
+        data_type: STRING
+      - name: choice_parameter
+        description: >
+          {{ doc("choice_parameter") }}
+        data_type: STRING
+      - name: selection_granular
+        description: >
+          {{ doc("selection_granular") }}
+        data_type: STRING
+      - name: kpi_timestamp_id
+        description: >
+          The ID of the KPI timestamp.          
+        data_type: date
+      - name: possible_winnings
+        description: >
+          The possible winnings.          
+        data_type: numeric
+      - name: possible_winnings_lc
+        description: >
+          The possible winnings in local currency.          
+        data_type: numeric
+      - name: what_if_possible_winnings
+        description: >
+          The "what if" possible winnings.          
+        data_type: numeric
+      - name: what_if_possible_winnings_lc
+        description: >
+          The "what if" possible winnings in local currency.          
+        data_type: numeric
+      - name: cashout_count
+        description: >
+          The count of cashouts.          
+        data_type: INTEGER
+      - name: cash_out_type_name
+        description: >
+          The name of the cash out type.          
+        data_type: string
+      - name: customer_placement_delay
+        description: >
+          The customer placement delay.          
+        data_type: numeric
+      - name: event_placement_delay
+        description: >
+          The event placement delay.          
+        data_type: numeric
+      - name: applied_placement_delay
+        description: >
+          The applied placement delay.          
+        data_type: NUMERIC
+      - name: bet_outcome_status
+        description: >
+          The status of the bet outcome.          
+        data_type: string
+      - name: src_outcome_id
+        description: >
+          The source outcome ID.          
+        data_type: string
+      # - name: wallet_transaction_type
+      #   description: >
+      #     The type of the wallet transaction.          
+      #   data_type: string
+      - name: prebuilt_boostfactor
+        description: >
+          The prebuilt_boostfactor      
+        data_type: numeric 
+      - name: origin_possible_winnings
+        description: >
+          The original possible winnings.          
+        data_type: numeric
+      - name: origin_possible_winnings_lc
+        description: >
+          The original possible winnings in local currency.          
+        data_type: numeric
+      - name: origin_total_odds
+        description: >
+          The original odds.          
+        data_type: numeric
+      - name: src_bonus_id
+        description: >
+          bonus id
+        data_type: string
+
+  - name: customer_monthly_activity_status
+    +database: "{{ env_var('DBT_GCP_PROJECT') }}"
+    +full_refresh: true
+    config:
+      tags: ['predicted','revenue']
+      materialized: table
+      access: public
+      on_schema_change: 'append_new_columns'
+      contract:
+        enforced: true
+    description: >
+      This table is at the customer and year_month level and stores the acquisition vs. retained status.
+    docs:
+      show: true
+    columns:
+      - name: customer_uid
+        description: The unique identifier of the customer.
+        data_type: string
+      - name: year_month
+        description: The Year month of when the cusomter is active
+        data_type: DATE
+      - name: activity_status
+        description: e new (acquired) are those placing their first bet, retained are those betting both this month
+         and the previous month, and reactivated are those betting this month but not in the previous month.
+        data_type: string
